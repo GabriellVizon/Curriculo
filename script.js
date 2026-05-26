@@ -65,8 +65,10 @@ function migrateOldData() {
     }
 
     const migrated = [];
+    const typesInStorage = new Set();
 
     if (oldCourses) {
+        typesInStorage.add("course");
         try {
             const parsed = JSON.parse(oldCourses);
             if (Array.isArray(parsed)) {
@@ -87,6 +89,7 @@ function migrateOldData() {
     }
 
     if (oldAcademic) {
+        typesInStorage.add("academic");
         try {
             const parsed = JSON.parse(oldAcademic);
             if (Array.isArray(parsed)) {
@@ -107,6 +110,7 @@ function migrateOldData() {
     }
 
     if (oldWork) {
+        typesInStorage.add("work");
         try {
             const parsed = JSON.parse(oldWork);
             if (Array.isArray(parsed)) {
@@ -125,6 +129,12 @@ function migrateOldData() {
         } catch { }
         localStorage.removeItem(OLD_KEYS.work);
     }
+
+    defaultItems.forEach(item => {
+        if (!typesInStorage.has(item.type)) {
+            migrated.push({ ...item, id: generateId() });
+        }
+    });
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
     return true;
