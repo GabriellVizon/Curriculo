@@ -4,176 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Felipe Vizon</title>
-    <!-- Fonte de icone -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- Fonte do Google -->
-
-    <!-- CSS Próprio -->
+    <title>Gabriel Felipe Vizon | Currículo</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <div class="profile-header">
-                <img src="Profile.jpeg" alt="Gabriel Vizon" class="profile-image">
-                <div class="profile-info">
-                    <h1>Gabriel Felipe Vizon</h1>
-                    <p class="title">Estudante</p>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="bx bx-current-location"></i>
-                            <span>Barra Bonita, SP</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="bx bx-envelope"></i>
-                            <span>gabrielvizon1931@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="bx bxl-whatsapp"></i>
-                            <span>(14) 99175-6138</span>
+    <div class="app-shell panel-locked">
+        <aside class="control-panel" aria-label="Painel de automação do currículo">
+            <div class="panel-heading">
+                <span class="eyebrow">Currículo vivo</span>
+                <h2>Atualize em segundos</h2>
+                <p>Adicione um curso, salve automaticamente e imprima uma versão limpa para enviar.</p>
+            </div>
+
+            <form id="course-form" class="course-form">
+                <label>
+                    Nome do curso
+                    <input id="course-name" type="text" placeholder="Ex: Lógica de Programação" required>
+                </label>
+
+                <label>
+                    Instituição
+                    <input id="course-school" type="text" placeholder="Ex: Etec, Senai, Alura">
+                </label>
+
+                <div class="form-grid">
+                    <label>
+                        Início
+                        <input id="course-start" type="month">
+                    </label>
+
+                    <label>
+                        Status
+                        <select id="course-status">
+                            <option value="Em curso">Em curso</option>
+                            <option value="Concluído">Concluído</option>
+                            <option value="Pausado">Pausado</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label>
+                    Descrição
+                    <textarea id="course-description" rows="4" placeholder="O que você está aprendendo? Quais tecnologias, habilidades ou temas?"></textarea>
+                </label>
+
+                <div class="button-row">
+                    <button class="primary-button" type="submit">
+                        <i class="bx bx-plus"></i>
+                        Adicionar curso
+                    </button>
+                    <button class="ghost-button" id="clear-courses" type="button">
+                        <i class="bx bx-rotate-left"></i>
+                        Restaurar
+                    </button>
+                </div>
+            </form>
+
+            <div class="utility-actions">
+                <button type="button" id="print-resume" title="Imprimir ou salvar em PDF">
+                    <i class="bx bx-printer"></i>
+                    PDF
+                </button>
+                <button type="button" id="export-data" title="Baixar backup dos cursos">
+                    <i class="bx bx-download"></i>
+                    Cópia
+                </button>
+                <label class="import-button" title="Importar backup">
+                    <i class="bx bx-upload"></i>
+                    Importar
+                    <input id="import-data" type="file" accept="application/json">
+                </label>
+            </div>
+
+            <p id="save-status" class="save-status" role="status">Pronto para atualizar.</p>
+        </aside>
+
+        <main class="resume-page" id="resume">
+            <header class="hero">
+                <div class="profile-header">
+                    <img src="Profile.jpeg" alt="Foto de Gabriel Vizon" class="profile-image">
+                    <div class="profile-info">
+                        <span class="resume-label">Currículo profissional</span>
+                        <h1>Gabriel Felipe Vizon</h1>
+                        <p class="title">Estudante de Desenvolvimento de Sistemas</p>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="bx bx-current-location"></i>
+                                <span>Barra Bonita, SP</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bx bx-envelope"></i>
+                                <span>gabrielvizon1931@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bx bxl-whatsapp"></i>
+                                <span>(14) 99175-6138</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <main>
+            <section class="summary-section">
+                <h2 class="section-title">
+                    <i class="bx bx-user"></i>
+                    Perfil
+                </h2>
+                <p>
+                    Estudante com interesse em tecnologia, programação e desenvolvimento profissional. Busca evoluir em
+                    ambientes que valorizem aprendizado contínuo, responsabilidade e comunicação.
+                </p>
+            </section>
 
-            <div class="content">
-                <!-- Formação Acadêmica -->
-                <section id="academic">
+            <section>
+                <h2 class="section-title">
+                    <i class="bx bxs-graduation"></i>
+                    Formação acadêmica
+                </h2>
+
+                <article class="timeline-item">
+                    <div class="item-header">
+                        <h3 class="item-title">
+                            <i class="bx bxs-book"></i>
+                            Ensino Médio
+                        </h3>
+                        <span class="item-date">Completo</span>
+                    </div>
+                    <p class="item-description">
+                        Formação com foco em exatas, matemática, biotecnologia, programação e empreendedorismo.
+                    </p>
+                </article>
+            </section>
+
+            <section>
+                <h2 class="section-title">
+                    <i class="bx bxs-briefcase-alt-2"></i>
+                    Experiência de trabalho
+                </h2>
+
+                <article class="timeline-item">
+                    <div class="item-header">
+                        <h3 class="item-title">
+                            <i class="bx bx-restaurant"></i>
+                            Pizzaiolo
+                        </h3>
+                        <span class="item-date">Jul 2024 - Dez 2024</span>
+                    </div>
+                    <p class="item-description">
+                        Atuação por 5 meses na Steve's Pizza, desenvolvendo responsabilidade, agilidade, organização e
+                        trabalho em equipe.
+                    </p>
+                </article>
+            </section>
+
+            <section id="courses-section">
+                <div class="section-head">
                     <h2 class="section-title">
-                        <i class="bx bxs-graduation"></i>
-                        Formação Acadêmica
-
+                        <i class="bx bx-certification"></i>
+                        Cursos e qualificações
                     </h2>
+                    <span id="course-counter" class="counter-pill">0 cursos</span>
+                </div>
 
-                    <div class="timeline-item">
-                        <div class="item-header">
-                            <h3 class="item-title">
-                                <i class="bx bxs-book"></i>
-                                Ensino Médio 
-                            </h3>
-                            <span class="item-date">Completo</span>
-                        </div>
-                        <p class="item-description">
-                            Ano focado no ensino de exatas (matématica, biotecnologia, programação, empreendedorismo)
-                        </p>
-                    </div>
+                <div id="courses-list" class="timeline-list"></div>
+            </section>
 
-                </section>
+            <section class="skills-section">
+                <h2 class="section-title">
+                    <i class="bx bx-bolt-circle"></i>
+                    Competências
+                </h2>
 
-                <!-- Experiência Profissional -->
-                <section id="professional">
-                    <h2 class="section-title">
-                        <i class="bx bxs-briefcase-alt-2"></i>
-                        Experiência de trabalho
+                <div class="skill-tags">
+                    <span>Aprendizado contínuo</span>
+                    <span>Organização</span>
+                    <span>Comunicação</span>
+                    <span>Programação</span>
+                    <span>Trabalho em equipe</span>
+                    <span>Inglês em desenvolvimento</span>
+                </div>
+            </section>
 
-                    </h2>
-
-                    <div class="timeline-item">
-                        <div class="item-header">
-                            <h3 class="item-title">
-                                <i class="bx bxs-book"></i>
-                                Pizzaiolo
-                            </h3>
-                            <span class="item-date">Julho 2024 - dezembro 2024</span>
-                        </div>
-                        <p class="item-description">
-                            Durante 5 meses estive trabalhando como pizzaiolo na Steve's Pizza
-                        </p>
-                    </div>
-                </section>
-                <!-- Outros Cursos -->
-                <section id="professional">
-                    <h2 class="section-title">
-                        <i class="bx bxs-gradutation"></i>
-                        Outros Cursos
-                    </h2>
-
-                    <div class="timeline-item">
-                        <div class="item-header">
-                            <h3 class="item-title">
-                                <i class="bx bxs-book"></i>
-                                Projeto Barracred Conecta
-                            </h3>
-                            <span class="item-date">Set 2025 - Em curso</span>
-                        </div>
-                        <p class="item-description">
-                            Curso direcionado a programação e desenvolvimento pessoal e Profissional
-                        </p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-header">
-                            <h3 class="item-title">
-                                <i class="bx bxs-book"></i>
-                                Etec - Cursando DS
-                            </h3>
-                            <span class="item-date">Mar 2026 - Em curso</span>
-                        </div>
-                        <p class="item-description">
-                            Curso direcionado a programação e desenvolvimento Profissional
-                        </p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-header">
-                            <h3 class="item-title">
-                                <i class="bx bxs-book"></i>
-                                Ativa Juventude
-                            </h3>
-                            <span class="item-date">Fev 2022 - Julho 2022</span>
-                        </div>
-                        <p class="item-description">
-                            Curso direcionado a desenvolvimento Profissional e sobre o mercado de trabalho
-                        </p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-header">
-                            <h3 class="item-title">
-                                <i class="bx bxs-book"></i>
-                                Centro de Linguas (Inglês)
-                            </h3>
-                            <span class="item-date">Set 2023 - Em Curso</span>
-                        </div>
-                        <p class="item-description">
-                            Curso direcionado a aprendizagem do idioma inglês, focando em habilidades de comunicação e compreensão.
-                            Aos Sabados, 07:00 - 12:00. Tempo previsto para conclusão: 06/2026
-                        </p>
-                    </div>
-
-                </section>
-            </div>
+            <footer>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/gabriel-vizon-80630b2b5/" target="_blank" class="social-link" title="LinkedIn">
+                        <i class="bx bxl-linkedin-square"></i>
+                    </a>
+                    <a href="https://github.com/GabriellVizon" target="_blank" class="social-link" title="GitHub">
+                        <i class="bx bxl-github"></i>
+                    </a>
+                </div>
+                <p>Siga-me nas redes sociais</p>
+                <p>Todos os direitos reservados 2026</p>
+                <button class="admin-trigger" id="admin-unlock" type="button" aria-label="Acessar painel de controle" title="Acessar painel de controle">⚙</button>
+            </footer>
         </main>
     </div>
-    <footer>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/gabriel-vizon-80630b2b5/" target="_blank" class="social-link"
-                title="LinkedIn">
-                <i class="bx bxl-linkedin-square"></i>
-            </a>
-
-            <a href="https://github.com/GabriellVizon" target="_blank" class="social-link" title="GitHub">
-                <i class="bx bxl-github"></i>
-            </a>
-            <a href="http://" target="_blank" class="social-link" title="Instagram">
-                <i class="bx bxl-instragram"></i>
-            </a>
-
-        </div>
-        <p class="copyright">
-            Siga-me nas Redes Sociais
-        </p>
-        <p class="copyright">
-            Todos os direitos reservados 2025
-        </p>
-
-    </footer>
-
 </body>
 
 </html>
