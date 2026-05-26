@@ -35,15 +35,12 @@ const itemType = document.querySelector("#item-type");
 const itemName = document.querySelector("#item-name");
 const itemSchool = document.querySelector("#item-school");
 const itemStart = document.querySelector("#item-start");
-const itemStatus = document.querySelector("#item-status");
-const itemEnd = document.querySelector("#item-end");
 const itemPresent = document.querySelector("#item-present");
 const itemDescription = document.querySelector("#item-description");
 
 const nameLabel = document.querySelector("#name-label");
 const schoolLabel = document.querySelector("#school-label");
-const statusGroup = document.querySelector("#status-group");
-const endGroup = document.querySelector("#end-group");
+const dynamicColumn = document.querySelector("#dynamic-column");
 const presentGroup = document.querySelector("#present-group");
 
 const coursesList = document.querySelector("#courses-list");
@@ -258,22 +255,20 @@ function updateFormForType(type) {
     itemDescription.placeholder = config.descPlaceholder;
 
     if (type === "work") {
-        statusGroup.style.display = "none";
-        endGroup.style.display = "";
+        dynamicColumn.innerHTML = `
+            Fim
+            <input id="item-end" type="month">
+        `;
         presentGroup.style.display = "";
     } else {
-        statusGroup.style.display = "";
-        endGroup.style.display = "none";
+        dynamicColumn.innerHTML = `
+            Status
+            <select id="item-status">
+                ${config.statusOptions.map(o => `<option value="${o}">${o}</option>`).join("")}
+            </select>
+        `;
+        document.querySelector("#item-status").value = config.defaultStatus;
         presentGroup.style.display = "none";
-
-        itemStatus.innerHTML = "";
-        config.statusOptions.forEach(opt => {
-            const option = document.createElement("option");
-            option.value = opt;
-            option.textContent = opt;
-            itemStatus.appendChild(option);
-        });
-        itemStatus.value = config.defaultStatus;
     }
 }
 
@@ -380,14 +375,17 @@ itemForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const type = itemType.value;
+    const itemStatusEl = document.querySelector("#item-status");
+    const itemEndEl = document.querySelector("#item-end");
+
     const entry = {
         id: generateId(),
         type,
         name: itemName.value.trim(),
         school: itemSchool.value.trim(),
         start: itemStart.value,
-        status: type !== "work" ? itemStatus.value : "",
-        end: type === "work" ? itemEnd.value : "",
+        status: type !== "work" && itemStatusEl ? itemStatusEl.value : "",
+        end: type === "work" && itemEndEl ? itemEndEl.value : "",
         present: type === "work" ? itemPresent.checked : false,
         description: itemDescription.value.trim()
     };
