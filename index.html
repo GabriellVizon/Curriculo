@@ -16,59 +16,86 @@
             <div class="panel-heading">
                 <span class="eyebrow">Currículo vivo</span>
                 <h2>Atualize em segundos</h2>
-                <p>Adicione um curso, salve automaticamente e imprima uma versão limpa para enviar.</p>
+                <p>Escolha o tipo, preencha e salve. Tudo organizado automaticamente.</p>
             </div>
 
-            <form id="course-form" class="course-form">
-                <label>
-                    Nome do curso
-                    <input id="course-name" type="text" placeholder="Ex: Lógica de Programação" required>
-                </label>
-
-                <label>
-                    Instituição
-                    <input id="course-school" type="text" placeholder="Ex: Etec, Senai, Alura">
-                </label>
-
-                <div class="form-grid">
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-list-plus"></i>
+                    Adicionar ao currículo
+                </h3>
+                <form id="item-form" class="course-form">
                     <label>
-                        Início
-                        <input id="course-start" type="month">
-                    </label>
-
-                    <label>
-                        Status
-                        <select id="course-status">
-                            <option value="Em curso">Em curso</option>
-                            <option value="Concluído">Concluído</option>
-                            <option value="Pausado">Pausado</option>
+                        Tipo
+                        <select id="item-type">
+                            <option value="course">Curso</option>
+                            <option value="academic">Formação acadêmica</option>
+                            <option value="work">Experiência de trabalho</option>
                         </select>
                     </label>
-                </div>
 
-                <label>
-                    Descrição
-                    <textarea id="course-description" rows="4" placeholder="O que você está aprendendo? Quais tecnologias, habilidades ou temas?"></textarea>
-                </label>
+                    <label id="name-label">
+                        Nome do curso
+                        <input id="item-name" type="text" placeholder="Ex: Lógica de Programação" required>
+                    </label>
 
-                <div class="button-row">
-                    <button class="primary-button" type="submit">
-                        <i class="bx bx-plus"></i>
-                        Adicionar curso
-                    </button>
-                    <button class="ghost-button" id="clear-courses" type="button">
-                        <i class="bx bx-rotate-left"></i>
-                        Restaurar
-                    </button>
-                </div>
-            </form>
+                    <label id="school-label">
+                        Instituição
+                        <input id="item-school" type="text" placeholder="Ex: Etec, Senai, Alura">
+                    </label>
+
+                    <div class="form-grid">
+                        <label>
+                            Início
+                            <input id="item-start" type="month">
+                        </label>
+
+                        <label id="status-group">
+                            Status
+                            <select id="item-status">
+                                <option value="Em curso">Em curso</option>
+                                <option value="Concluído">Concluído</option>
+                                <option value="Pausado">Pausado</option>
+                            </select>
+                        </label>
+
+                        <label id="end-group" style="display: none;">
+                            Fim
+                            <input id="item-end" type="month">
+                        </label>
+                    </div>
+
+                    <div id="present-group" style="display: none;">
+                        <label class="checkbox-label">
+                            <input id="item-present" type="checkbox">
+                            Trabalho atual
+                        </label>
+                    </div>
+
+                    <label>
+                        Descrição
+                        <textarea id="item-description" rows="4" placeholder="O que você está aprendendo? Quais tecnologias, habilidades ou temas?"></textarea>
+                    </label>
+
+                    <div class="button-row">
+                        <button class="primary-button" type="submit">
+                            <i class="bx bx-check"></i>
+                            Pronto
+                        </button>
+                        <button class="ghost-button" id="clear-all" type="button">
+                            <i class="bx bx-rotate-left"></i>
+                            Restaurar
+                        </button>
+                    </div>
+                </form>
+            </div>
 
             <div class="utility-actions">
                 <button type="button" id="print-resume" title="Imprimir ou salvar em PDF">
                     <i class="bx bx-printer"></i>
                     PDF
                 </button>
-                <button type="button" id="export-data" title="Baixar backup dos cursos">
+                <button type="button" id="export-data" title="Baixar backup de todos os dados">
                     <i class="bx bx-download"></i>
                     Cópia
                 </button>
@@ -119,45 +146,26 @@
                 </p>
             </section>
 
-            <section>
-                <h2 class="section-title">
-                    <i class="bx bxs-graduation"></i>
-                    Formação acadêmica
-                </h2>
-
-                <article class="timeline-item">
-                    <div class="item-header">
-                        <h3 class="item-title">
-                            <i class="bx bxs-book"></i>
-                            Ensino Médio
-                        </h3>
-                        <span class="item-date">Completo</span>
-                    </div>
-                    <p class="item-description">
-                        Formação com foco em exatas, matemática, biotecnologia, programação e empreendedorismo.
-                    </p>
-                </article>
+            <section id="academic-section">
+                <div class="section-head">
+                    <h2 class="section-title">
+                        <i class="bx bxs-graduation"></i>
+                        Formação acadêmica
+                    </h2>
+                    <span id="academic-counter" class="counter-pill">0 formações</span>
+                </div>
+                <div id="academic-list" class="timeline-list"></div>
             </section>
 
-            <section>
-                <h2 class="section-title">
-                    <i class="bx bxs-briefcase-alt-2"></i>
-                    Experiência de trabalho
-                </h2>
-
-                <article class="timeline-item">
-                    <div class="item-header">
-                        <h3 class="item-title">
-                            <i class="bx bx-restaurant"></i>
-                            Pizzaiolo
-                        </h3>
-                        <span class="item-date">Jul 2024 - Dez 2024</span>
-                    </div>
-                    <p class="item-description">
-                        Atuação por 5 meses na Steve's Pizza, desenvolvendo responsabilidade, agilidade, organização e
-                        trabalho em equipe.
-                    </p>
-                </article>
+            <section id="work-section">
+                <div class="section-head">
+                    <h2 class="section-title">
+                        <i class="bx bxs-briefcase-alt-2"></i>
+                        Experiência de trabalho
+                    </h2>
+                    <span id="work-counter" class="counter-pill">0 experiências</span>
+                </div>
+                <div id="work-list" class="timeline-list"></div>
             </section>
 
             <section id="courses-section">
@@ -168,7 +176,6 @@
                     </h2>
                     <span id="course-counter" class="counter-pill">0 cursos</span>
                 </div>
-
                 <div id="courses-list" class="timeline-list"></div>
             </section>
 

@@ -59,6 +59,10 @@ button {
     display: none;
 }
 
+.app-shell.panel-locked .course-actions {
+    display: none;
+}
+
 .control-panel,
 .resume-page,
 section,
@@ -103,6 +107,24 @@ section,
 .save-status {
     color: var(--muted);
     font-size: 0.94rem;
+}
+
+.panel-section {
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+}
+
+.panel-subheading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.85rem;
+    color: var(--muted);
+}
+
+.panel-subheading i {
+    color: var(--green);
 }
 
 .course-form {
@@ -193,6 +215,20 @@ textarea:focus {
 
 .save-status {
     min-height: 1.4rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: row;
+    font-weight: 400;
+    font-size: 0.88rem;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
 }
 
 .resume-page {
