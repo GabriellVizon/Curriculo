@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Felipe Vizon | Currículo</title>
+    <title>Currículo Dinâmico</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
@@ -12,17 +12,115 @@
 
 <body>
     <div class="app-shell panel-locked">
-        <aside class="control-panel" aria-label="Painel de automação do currículo">
+        <aside class="control-panel" aria-label="Painel de administração">
             <div class="panel-heading">
-                <span class="eyebrow">Currículo vivo</span>
-                <h2>Atualize em segundos</h2>
-                <p>Escolha o tipo, preencha e salve. Tudo organizado automaticamente.</p>
+                <div class="panel-head-row">
+                    <div>
+                        <span class="eyebrow">Painel Admin</span>
+                        <h2>Gerenciar currículo</h2>
+                    </div>
+                    <button id="lock-panel-btn" class="lock-button" type="button" title="Bloquear painel">
+                        <i class="bx bx-lock-open"></i>
+                    </button>
+                </div>
+                <p>Altere os dados preenchendo os campos abaixo. Tudo salvo automaticamente.</p>
             </div>
 
+            <!-- Barra de ações -->
+            <div class="confirm-bar">
+                <button id="confirm-changes" class="primary-button action-button" type="button">
+                    <i class="bx bx-check-double"></i>
+                    Confirmar e salvar tudo
+                </button>
+                <button id="revert-changes" class="ghost-button action-button" type="button">
+                    <i class="bx bx-x-circle"></i>
+                    Descartar alterações
+                </button>
+            </div>
+
+            <!-- Perfil -->
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-user-circle"></i>
+                    Editar Perfil
+                </h3>
+                <form id="profile-form" class="profile-form">
+                    <label>
+                        Foto
+                        <input id="profile-photo-input" type="file" accept="image/*">
+                    </label>
+                    <label>
+                        Nome completo
+                        <input id="profile-name" type="text" required>
+                    </label>
+                    <label>
+                        Título / Cargo
+                        <input id="profile-title" type="text">
+                    </label>
+                    <div class="form-grid">
+                        <label>
+                            Cidade
+                            <input id="profile-city" type="text">
+                        </label>
+                        <label>
+                            Estado
+                            <input id="profile-state" type="text">
+                        </label>
+                    </div>
+                    <div class="form-grid">
+                        <label>
+                            E-mail
+                            <input id="profile-email" type="email">
+                        </label>
+                        <label>
+                            Telefone
+                            <input id="profile-phone" type="text">
+                        </label>
+                    </div>
+                    <label>
+                        Resumo / Perfil profissional
+                        <textarea id="profile-summary" rows="4"></textarea>
+                    </label>
+                    <p id="profile-status" class="field-status">Dados salvos ✓</p>
+                </form>
+            </div>
+
+            <!-- Competências -->
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-bolt-circle"></i>
+                    Competências
+                </h3>
+                <div class="tag-editor">
+                    <div class="tag-input-row">
+                        <input id="skill-input" type="text" placeholder="Ex: JavaScript">
+                        <button id="add-skill-btn" class="small-button" type="button">+</button>
+                    </div>
+                    <div id="skills-list" class="tag-list"></div>
+                </div>
+            </div>
+
+            <!-- Links Sociais -->
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-link"></i>
+                    Links Sociais
+                </h3>
+                <div class="tag-editor">
+                    <div class="tag-input-row">
+                        <input id="social-name-input" type="text" placeholder="Nome (ex: LinkedIn)">
+                        <input id="social-url-input" type="url" placeholder="URL completa">
+                        <button id="add-social-btn" class="small-button" type="button">+</button>
+                    </div>
+                    <div id="social-list" class="tag-list"></div>
+                </div>
+            </div>
+
+            <!-- Adicionar / Editar Item -->
             <div class="panel-section">
                 <h3 class="panel-subheading">
                     <i class="bx bx-list-plus"></i>
-                    Adicionar ao currículo
+                    Adicionar / Editar Item
                 </h3>
                 <form id="item-form" class="course-form">
                     <label>
@@ -74,7 +172,11 @@
                     <div class="button-row">
                         <button class="primary-button" type="submit">
                             <i class="bx bx-check"></i>
-                            Pronto
+                            <span id="submit-label">Pronto</span>
+                        </button>
+                        <button class="ghost-button" id="cancel-edit" type="button" style="display:none;">
+                            <i class="bx bx-x"></i>
+                            Cancelar
                         </button>
                         <button class="ghost-button" id="clear-all" type="button">
                             <i class="bx bx-rotate-left"></i>
@@ -84,45 +186,81 @@
                 </form>
             </div>
 
-            <div class="utility-actions">
-                <button type="button" id="print-resume" title="Imprimir ou salvar em PDF">
-                    <i class="bx bx-printer"></i>
-                    PDF
-                </button>
-                <button type="button" id="export-data" title="Baixar backup de todos os dados">
-                    <i class="bx bx-download"></i>
-                    Cópia
-                </button>
-                <label class="import-button" title="Importar backup">
-                    <i class="bx bx-upload"></i>
-                    Importar
-                    <input id="import-data" type="file" accept="application/json">
-                </label>
+            <!-- Gerenciar Itens (reordenar) -->
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-sort"></i>
+                    Reordenar Itens
+                </h3>
+                <div id="item-manager" class="item-manager"></div>
             </div>
 
-            <p id="save-status" class="save-status" role="status">Pronto para atualizar.</p>
+            <!-- Segurança -->
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-lock-alt"></i>
+                    Segurança
+                </h3>
+                <form id="security-form" class="security-form">
+                    <label>
+                        Senha do painel (desbloquear)
+                        <input id="admin-password" type="text" placeholder="Mínimo 4 caracteres">
+                    </label>
+                    <label>
+                        Senha de confirmação (salvar)
+                        <input id="confirm-password" type="text" placeholder="Mínimo 4 caracteres">
+                    </label>
+                    <button class="small-button" type="submit">Alterar senhas</button>
+                    <p id="security-status" class="field-status"></p>
+                </form>
+            </div>
+
+            <!-- Utilitários -->
+            <div class="panel-section">
+                <h3 class="panel-subheading">
+                    <i class="bx bx-wrench"></i>
+                    Utilitários
+                </h3>
+                <div class="utility-actions">
+                    <button type="button" id="print-resume" title="Imprimir ou salvar em PDF">
+                        <i class="bx bx-printer"></i>
+                        PDF
+                    </button>
+                    <button type="button" id="export-data" title="Baixar backup de todos os dados">
+                        <i class="bx bx-download"></i>
+                        Cópia
+                    </button>
+                    <label class="import-button" title="Importar backup">
+                        <i class="bx bx-upload"></i>
+                        Importar
+                        <input id="import-data" type="file" accept="application/json">
+                    </label>
+                </div>
+                <p id="save-status" class="save-status" role="status">Pronto.</p>
+            </div>
         </aside>
 
+        <!-- CURRÍCULO -->
         <main class="resume-page" id="resume">
             <header class="hero">
                 <div class="profile-header">
-                    <img src="Profile.jpeg" alt="Foto de Gabriel Vizon" class="profile-image">
+                    <img id="profile-photo" src="Profile.jpeg" alt="Foto do perfil" class="profile-image">
                     <div class="profile-info">
-                        <h1>Gabriel Felipe Vizon</h1>
-                        <p class="title">Estudante de Desenvolvimento de Sistemas|Back-End </p>
-                        <div class="contact-info">
-                            <div class="contact-item">
+                        <h1 id="display-name">Gabriel Felipe Vizon</h1>
+                        <p id="display-title" class="title">Estudante de Desenvolvimento de Sistemas | Back-End</p>
+                        <div id="display-contact" class="contact-info">
+                            <span class="contact-item">
                                 <i class="bx bx-current-location"></i>
-                                <span>Barra Bonita, SP</span>
-                            </div>
-                            <div class="contact-item">
+                                <span id="display-city">Barra Bonita</span>, <span id="display-state">SP</span>
+                            </span>
+                            <span class="contact-item">
                                 <i class="bx bx-envelope"></i>
-                                <span>gabrielvizon1931@gmail.com</span>
-                            </div>
-                            <div class="contact-item">
+                                <span id="display-email">gabrielvizon1931@gmail.com</span>
+                            </span>
+                            <span class="contact-item">
                                 <i class="bx bxl-whatsapp"></i>
-                                <span>(14) 99175-6138</span>
-                            </div>
+                                <span id="display-phone">(14) 99175-6138</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -133,11 +271,8 @@
                     <i class="bx bx-user"></i>
                     Perfil
                 </h2>
-                <p>
-                    Estudante com interesse em tecnologia, programação e desenvolvimento profissional, sempre buscando aprimorar conhecimentos por meio de estudos, cursos e projetos pessoais.
-                      Embora ainda não possua experiência profissional na área, desenvolvi habilidades
-                       práticas em projetos acadêmicos e pessoais, aplicando conceitos de desenvolvimento de
-                        software e resolução de problemas. 
+                <p id="display-summary">
+                    Estudante com interesse em tecnologia, programação e desenvolvimento profissional, sempre buscando aprimorar conhecimentos por meio de estudos, cursos e projetos pessoais. Embora ainda não possua experiência profissional na área, desenvolvi habilidades práticas em projetos acadêmicos e pessoais, aplicando conceitos de desenvolvimento de software e resolução de problemas.
                 </p>
             </section>
 
@@ -179,30 +314,12 @@
                     <i class="bx bx-bolt-circle"></i>
                     Competências
                 </h2>
-
-                <div class="skill-tags">
-                    <span>Git e GitHub</span>
-                    <span>HTML e CSS</span>
-                    <span>Lógica de Programação</span>
-                    <span>Aprendendo C#</span>
-                    <span>Aprendizado contínuo</span>
-                    <span>Organização</span>
-                    <span>Comunicação</span>
-                    <span>Trabalho em equipe</span>
-                </div>
+                <div id="display-skills" class="skill-tags"></div>
             </section>
 
             <footer>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/gabriel-vizon-80630b2b5/" target="_blank" class="social-link" title="LinkedIn">
-                        <i class="bx bxl-linkedin-square"></i>
-                    </a>
-                    <a href="https://github.com/GabriellVizon" target="_blank" class="social-link" title="GitHub">
-                        <i class="bx bxl-github"></i>
-                    </a>
-                </div>
-                <p>Siga-me nas redes sociais</p>
-                <p>Todos os direitos reservados 2026</p>
+                <div id="display-social" class="social-links"></div>
+                <p id="display-copyright">© 2026 - Currículo Dinâmico</p>
                 <button class="admin-trigger" id="admin-unlock" type="button" aria-label="Acessar painel de controle" title="Acessar painel de controle">⚙</button>
             </footer>
         </main>
